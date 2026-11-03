@@ -1,8 +1,8 @@
 # Launch Catalog Specification
 
 - **Reference**: [PRD](/PRD.md) FR1, [ADD](/ADD.md) API contract.
-- **Issue**: pending (`feat-launch-catalog`, label `enhancement`).
-- **Status**: Draft
+- **Issue**: #1 (`feat-launch-catalog`, label `enhancement`).
+- **Status**: Completed
 
 ## Problem Description
 
