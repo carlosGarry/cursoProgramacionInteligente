@@ -1,7 +1,7 @@
 # Feature: Tabla de lanzamientos con botón de reserva
 
 **Reference**: FR9 (PRD.md)
-**Issue**: pendiente
+**Issue**: #9
 **Status**: Completed
 
 ---
