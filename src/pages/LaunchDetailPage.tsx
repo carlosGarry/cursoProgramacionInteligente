@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useLaunch } from '../hooks/useLaunches';
 import { AsyncView, StatusMessage } from '../components/StatusMessage';
 import { BookingForm } from '../components/BookingForm';
-import { seatsLabel } from '../components/LaunchCard';
+import { seatsLabel } from '../components/LaunchTable';
 import { Icon } from '../components/Icon';
 import { ApiError } from '../services/http';
 

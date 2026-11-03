@@ -31,31 +31,29 @@ async function hasHorizontalOverflow(page: Page) {
   return page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
 }
 
-async function gridColumnCount(page: Page) {
-  return page.getByTestId('launch-card').first().evaluate((card) => {
-    const grid = card.parentElement!;
-    return getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
-  });
+async function visibleHeaderCount(page: Page) {
+  return page.locator('.launches-table thead th').evaluateAll((ths) => ths.filter((th) => getComputedStyle(th).display !== 'none').length);
 }
 
 test.describe('Diseño moderno y responsive', () => {
-  test('en móvil el catálogo va en una columna y no hay desbordamiento horizontal', async ({ page }) => {
+  test('en móvil la tabla de lanzamientos apila las filas y no hay desbordamiento horizontal', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await mockApi(page);
     await page.goto('/');
 
-    await expect(page.getByTestId('launch-card')).toHaveCount(3);
-    expect(await gridColumnCount(page)).toBe(1);
+    await expect(page.getByTestId('launch-row')).toHaveCount(3);
+    await expect(page.locator('.launches-table thead')).toBeHidden();
     expect(await hasHorizontalOverflow(page)).toBe(false);
   });
 
-  test('en escritorio el catálogo muestra tres columnas', async ({ page }) => {
+  test('en escritorio la tabla de lanzamientos muestra la cabecera con sus seis columnas', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await mockApi(page);
     await page.goto('/');
 
-    await expect(page.getByTestId('launch-card')).toHaveCount(3);
-    expect(await gridColumnCount(page)).toBe(3);
+    await expect(page.getByTestId('launch-row')).toHaveCount(3);
+    await expect(page.locator('.launches-table thead')).toBeVisible();
+    expect(await visibleHeaderCount(page)).toBe(6);
   });
 
   test('en móvil los controles del formulario tienen al menos 44 px de alto', async ({ page }) => {

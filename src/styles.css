@@ -111,64 +111,12 @@ main {
   margin: 0 auto;
 }
 
-.launch-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-@media (min-width: 600px) {
-  .launch-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 960px) {
-  .launch-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.launch-card,
 .launch-detail {
   position: relative;
   padding: 1.25rem;
   background: var(--surface);
   border-top: 6px solid var(--accent-blue);
   color: var(--text);
-}
-
-.launch-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  min-height: 160px;
-}
-
-.launch-card:nth-child(4n + 2) {
-  border-top-color: var(--accent-green);
-}
-
-.launch-card:nth-child(4n + 3) {
-  border-top-color: var(--accent-orange);
-}
-
-.launch-card:nth-child(4n + 4) {
-  border-top-color: var(--accent-purple);
-}
-
-.launch-card:nth-child(4n + 1) {
-  border-top-color: var(--accent-red);
-}
-
-.launch-card h2,
-.launch-card a {
-  color: var(--text);
-  font-size: 1.25rem;
-}
-
-.launch-card a:hover {
-  text-decoration: underline;
 }
 
 .launch-detail h1 {
@@ -182,7 +130,6 @@ main {
 }
 
 .seats,
-.launch-card p,
 .launch-detail p {
   color: var(--muted);
   margin: 0.25rem 0;
@@ -225,20 +172,24 @@ main {
   overflow-x: auto;
 }
 
-.bookings-table {
+.bookings-table,
+.launches-table {
   width: 100%;
   border-collapse: collapse;
   background: var(--surface);
 }
 
 .bookings-table th,
-.bookings-table td {
+.bookings-table td,
+.launches-table th,
+.launches-table td {
   padding: 0.85rem 1rem;
   text-align: left;
   border-bottom: 1px solid #2c2c2c;
 }
 
-.bookings-table thead th {
+.bookings-table thead th,
+.launches-table thead th {
   background: var(--accent-blue);
   color: var(--text);
   font-size: 0.85rem;
@@ -247,8 +198,41 @@ main {
   letter-spacing: 0.05em;
 }
 
-.bookings-table tbody tr:hover {
+.bookings-table tbody tr:hover,
+.launches-table tbody tr:hover {
   background: #262626;
+}
+
+.launches-table tbody tr {
+  border-left: 6px solid var(--accent-blue);
+}
+
+.launches-table tbody tr:nth-child(4n + 2) {
+  border-left-color: var(--accent-green);
+}
+
+.launches-table tbody tr:nth-child(4n + 3) {
+  border-left-color: var(--accent-orange);
+}
+
+.launches-table tbody tr:nth-child(4n + 4) {
+  border-left-color: var(--accent-purple);
+}
+
+.launches-table tbody tr:nth-child(4n + 1) {
+  border-left-color: var(--accent-red);
+}
+
+.launch-name {
+  font-weight: 700;
+}
+
+.action-cell {
+  white-space: nowrap;
+}
+
+.action-cell .badge {
+  align-self: auto;
 }
 
 .booking-name {
@@ -359,14 +343,19 @@ main {
 }
 
 @media (max-width: 599px) {
-  .bookings-table thead {
+  .bookings-table thead,
+  .launches-table thead {
     display: none;
   }
 
   .bookings-table,
   .bookings-table tbody,
   .bookings-table tr,
-  .bookings-table td {
+  .bookings-table td,
+  .launches-table,
+  .launches-table tbody,
+  .launches-table tr,
+  .launches-table td {
     display: block;
     width: 100%;
   }
@@ -376,14 +365,26 @@ main {
     border-top: 4px solid var(--accent-blue);
   }
 
-  .bookings-table td {
+  .launches-table tr {
+    margin-bottom: 0.75rem;
+    border-left: 0;
+    border-top: 6px solid var(--accent-blue);
+  }
+
+  .bookings-table td,
+  .launches-table td {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
     border-bottom: 1px solid #2c2c2c;
   }
 
-  .bookings-table td::before {
+  .launches-table .action-cell {
+    justify-content: flex-end;
+  }
+
+  .bookings-table td::before,
+  .launches-table td::before {
     content: attr(data-label);
     color: var(--muted);
     font-size: 0.85rem;

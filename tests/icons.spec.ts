@@ -43,14 +43,14 @@ test.describe('Iconografía', () => {
     await expect(page.getByRole('link', { name: 'Registrarse' })).toBeVisible();
   });
 
-  test('cada tarjeta de lanzamiento muestra iconos de lugar, fecha, precio y plazas', async ({ page }) => {
+  test('cada fila de lanzamiento muestra iconos de lugar, fecha, precio y plazas', async ({ page }) => {
     await mockApi(page);
     await page.goto('/');
 
-    const card = page.getByTestId('launch-card').first();
-    await expect(card.locator('.meta-row svg.icon')).toHaveCount(4);
-    await expect(card.locator('svg.icon').first()).toHaveAttribute('aria-hidden', 'true');
-    await expect(card.getByRole('link', { name: 'Luna' })).toBeVisible();
+    const row = page.getByTestId('launch-row').first();
+    await expect(row.locator('.meta-row svg.icon')).toHaveCount(4);
+    await expect(row.locator('svg.icon').first()).toHaveAttribute('aria-hidden', 'true');
+    await expect(row.locator('.launch-name')).toHaveText('Luna');
   });
 
   test('el toast de éxito muestra su icono', async ({ page }) => {
@@ -72,7 +72,7 @@ test.describe('Iconografía', () => {
     await mockApi(page);
     await page.goto('/');
 
-    await expect(page.getByTestId('launch-card')).toHaveCount(1);
+    await expect(page.getByTestId('launch-row')).toHaveCount(1);
     expect(await hasHorizontalOverflow(page)).toBe(false);
   });
 });

@@ -70,6 +70,11 @@ A React web client that consumes the AstroBookings REST API so customers can bro
 - **Priority**: Medium
 - **Status**: Completed
 
+### FR9: Launches Table
+- **Description**: The launch list shows launches as a modern table (launch, place, date, price, seats and action). Each bookable launch has a final "Reservar" button that opens the booking flow, replacing the title link. Non-bookable launches show a "No reservable" badge. On mobile, rows stack with labelled cells.
+- **Priority**: Medium
+- **Status**: Completed
+
 ## Technical Requirements
 
 ### TR1: Typed API Client

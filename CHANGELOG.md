@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Bookings table and toasts (FR6): "Mis reservas" shows a table with launch, date, seats and a payment status badge, and stacks into cards on phones. Actions show toast notifications (login, registration, logout, booking success and booking error) that disappear after 4 seconds. Spec in `specs/feat-bookings-table-toasts.spec.md`. Playwright tests in `tests/my-bookings.spec.ts` and `tests/toasts.spec.ts`.
 - Iconography (FR7): inline SVG icons in the header, launch cards and detail, booking payment badges and toasts, from the `Icon` component in `src/components/Icon.tsx`. No icon dependency added. Spec in `specs/feat-iconography.spec.md`. Playwright tests in `tests/icons.spec.ts`.
 - Form messages as toasts (FR8): seat range, registration and login errors show as toast notifications instead of inline text, so forms keep their layout. Spec in `specs/feat-form-messages-toasts.spec.md`. Playwright tests in `tests/form-messages.spec.ts`.
+- Launches table (FR9): the launch list is a modern table with a final "Reservar" button per bookable launch, replacing the title link and the card grid. Spec in `specs/feat-launches-table.spec.md`. Playwright tests in `tests/launch-catalog.spec.ts`, `tests/modern-ui.spec.ts` and `tests/icons.spec.ts`.
 
 ### Fixed
 - API: registration and login now share one `UserService` instance, so users registered while the server runs can log in (`activity-bookings-express`, branch `fix/shared-user-service`).

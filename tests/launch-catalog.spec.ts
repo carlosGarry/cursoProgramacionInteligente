@@ -38,13 +38,26 @@ test.describe('Catálogo de lanzamientos', () => {
     await mockApi(page);
     await page.goto('/');
 
-    const cards = page.getByTestId('launch-card');
-    await expect(cards).toHaveCount(2);
-    await expect(page.getByRole('link', { name: 'Luna' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Marte' })).toBeVisible();
+    const rows = page.getByTestId('launch-row');
+    await expect(rows).toHaveCount(2);
+    await expect(page.locator('.launch-name', { hasText: 'Luna' })).toBeVisible();
+    await expect(page.locator('.launch-name', { hasText: 'Marte' })).toBeVisible();
     await expect(page.getByText('Borrador')).toHaveCount(0);
-    await expect(cards.filter({ hasText: 'Luna' }).getByText('3 plazas libres')).toBeVisible();
-    await expect(cards.filter({ hasText: 'Luna' }).getByText('100 €')).toBeVisible();
+    await expect(rows.filter({ hasText: 'Luna' }).getByText('3 plazas libres')).toBeVisible();
+    await expect(rows.filter({ hasText: 'Luna' }).getByText('100 €')).toBeVisible();
+  });
+
+  test('cada fila reservable tiene un botón Reservar que abre el detalle y las no reservables muestran un aviso', async ({ page }) => {
+    await mockApi(page);
+    await page.goto('/');
+
+    const rows = page.getByTestId('launch-row');
+    await expect(rows.filter({ hasText: 'Marte' }).getByText('No reservable')).toBeVisible();
+    await expect(rows.filter({ hasText: 'Marte' }).getByRole('button')).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Reservar Luna' }).click();
+    await expect(page).toHaveURL(/\/launches\/activity-1$/);
+    await expect(page.getByRole('heading', { name: 'Luna' })).toBeVisible();
   });
 
   test('un lanzamiento agotado se muestra sin plazas y no admite reservas', async ({ page }) => {
@@ -71,7 +84,7 @@ test.describe('Catálogo de lanzamientos', () => {
     await mockApi(page, { failAvailabilityFor: 'activity-1' });
     await page.goto('/');
 
-    await expect(page.getByTestId('launch-card')).toHaveCount(2);
+    await expect(page.getByTestId('launch-row')).toHaveCount(2);
     await expect(page.getByText('Plazas no disponibles')).toBeVisible();
     await expect(page.getByText('Agotado')).toBeVisible();
   });
@@ -94,5 +107,5 @@ test.describe('Catálogo de lanzamientos', () => {
 
 test('smoke: carga el catálogo desde la API real', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByTestId('launch-card').first()).toBeVisible();
+  await expect(page.getByTestId('launch-row').first()).toBeVisible();
 });

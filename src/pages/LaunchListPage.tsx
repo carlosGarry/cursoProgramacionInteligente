@@ -1,6 +1,6 @@
 import { useLaunches } from '../hooks/useLaunches';
 import { AsyncView, StatusMessage } from '../components/StatusMessage';
-import { LaunchCard } from '../components/LaunchCard';
+import { LaunchTable } from '../components/LaunchTable';
 
 export function LaunchListPage() {
   const { state, retry } = useLaunches();
@@ -13,11 +13,7 @@ export function LaunchListPage() {
           launches.length === 0 ? (
             <StatusMessage>No hay lanzamientos disponibles.</StatusMessage>
           ) : (
-            <div className="launch-grid">
-              {launches.map((launch) => (
-                <LaunchCard key={launch.id} launch={launch} />
-              ))}
-            </div>
+            <LaunchTable launches={launches} />
           )
         }
       </AsyncView>
