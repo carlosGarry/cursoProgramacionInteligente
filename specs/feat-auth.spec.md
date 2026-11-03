@@ -1,7 +1,7 @@
 # Authentication Specification
 
 - **Reference**: [PRD](/PRD.md) FR4, TR2, TR4, [ADD](/ADD.md) API contract.
-- **Issue**: pending (`feat-auth`, label `enhancement`).
+- **Issue**: #2 (`feat-auth`, label `enhancement`).
 - **Status**: Completed
 
 ## Problem Description
