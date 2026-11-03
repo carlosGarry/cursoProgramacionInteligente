@@ -47,7 +47,7 @@ A React web client that consumes the AstroBookings REST API so customers can bro
 ### FR4: Authentication
 - **Description**: Customers register and log in with email and password. The client keeps the JWT and uses it for booking endpoints.
 - **Priority**: High
-- **Status**: NotStarted
+- **Status**: Completed
 
 ## Technical Requirements
 

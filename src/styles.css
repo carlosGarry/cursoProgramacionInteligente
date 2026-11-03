@@ -44,3 +44,48 @@ main {
 button:disabled {
   opacity: 0.5;
 }
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-header nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-header a {
+  color: #e6e9f2;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 360px;
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.auth-form label.checkbox {
+  flex-direction: row;
+  align-items: center;
+}
+
+.auth-form input {
+  padding: 0.4rem;
+}
+
+.form-error {
+  color: #ff8a8a;
+  margin: 0;
+}
+
