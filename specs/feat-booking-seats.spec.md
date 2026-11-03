@@ -1,7 +1,7 @@
 # Feature: Reservar plazas en un lanzamiento
 
 **Reference**: FR2 (PRD.md)
-**Issue**: pendiente (crear en GitHub y poner el número aquí)
+**Issue**: #3
 **Status**: Completed
 
 ---

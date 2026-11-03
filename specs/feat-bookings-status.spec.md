@@ -1,7 +1,7 @@
 # Feature: Estado de reservas y "Mis reservas"
 
 **Reference**: FR3 (PRD.md)
-**Issue**: pendiente (crear en GitHub y poner el número aquí)
+**Issue**: #4
 **Status**: Completed
 
 ---
