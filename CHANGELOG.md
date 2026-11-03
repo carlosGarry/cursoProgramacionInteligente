@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - My bookings (FR3): `/bookings` ("Mis reservas") lists the user's bookings from `GET /bookings` with the launch data and the payment status, and redirects to login without a session. Playwright tests in `tests/my-bookings.spec.ts`.
 - Modern Metro UI (FR5): flat colour tiles with square edges, bold typography, a one-column catalog on phones, three columns on desktop, and touch targets of at least 44 px. Spec in `specs/feat-modern-ui.spec.md`. Playwright tests in `tests/modern-ui.spec.ts`.
 - Bookings table and toasts (FR6): "Mis reservas" shows a table with launch, date, seats and a payment status badge, and stacks into cards on phones. Actions show toast notifications (login, registration, logout, booking success and booking error) that disappear after 4 seconds. Spec in `specs/feat-bookings-table-toasts.spec.md`. Playwright tests in `tests/my-bookings.spec.ts` and `tests/toasts.spec.ts`.
+- Iconography (FR7): inline SVG icons in the header, launch cards and detail, booking payment badges and toasts, from the `Icon` component in `src/components/Icon.tsx`. No icon dependency added. Spec in `specs/feat-iconography.spec.md`. Playwright tests in `tests/icons.spec.ts`.
 
 ### Fixed
 - API: registration and login now share one `UserService` instance, so users registered while the server runs can log in (`activity-bookings-express`, branch `fix/shared-user-service`).

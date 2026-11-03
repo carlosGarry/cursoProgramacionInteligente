@@ -317,6 +317,43 @@ main {
   font-weight: 600;
 }
 
+.icon {
+  flex-shrink: 0;
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.15em;
+}
+
+.app-header .brand,
+.app-header nav a,
+.app-header nav button,
+.app-header nav span,
+.back-link,
+.page-title,
+.payment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.toast-icon {
+  align-self: center;
+  width: 1.3em;
+  height: 1.3em;
+  margin-left: 0.9rem;
+}
+
+.toast-close .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
 .toast-close {
   min-width: var(--touch);
   padding: 0;

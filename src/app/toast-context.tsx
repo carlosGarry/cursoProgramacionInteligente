@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from 'react';
+import { Icon } from '../components/Icon';
 
 type ToastKind = 'success' | 'error';
 
@@ -41,11 +42,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div className="toast-region">
         {toasts.map((toast) => (
           <div key={toast.id} className={`toast toast-${toast.kind}`}>
+            <Icon name={toast.kind === 'error' ? 'alert-circle' : 'check-circle'} className="toast-icon" />
             <p role={toast.kind === 'error' ? 'alert' : 'status'} className="toast-message">
               {toast.message}
             </p>
             <button type="button" className="toast-close" aria-label="Cerrar notificación" onClick={() => dismiss(toast.id)}>
-              ×
+              <Icon name="x" />
             </button>
           </div>
         ))}

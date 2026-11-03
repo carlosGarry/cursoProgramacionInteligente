@@ -60,6 +60,11 @@ A React web client that consumes the AstroBookings REST API so customers can bro
 - **Priority**: Medium
 - **Status**: Completed
 
+### FR7: Iconography
+- **Description**: The client uses a consistent set of inline SVG icons for launch details, header actions and toast messages, without adding external icon dependencies. Icons are decorative and never replace visible text.
+- **Priority**: Low
+- **Status**: Completed
+
 ## Technical Requirements
 
 ### TR1: Typed API Client

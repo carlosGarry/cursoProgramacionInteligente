@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useSession } from '../app/session-context';
 import { useToast } from '../app/toast-context';
+import { Icon } from './Icon';
 import { createBooking } from '../services/bookings.service';
 import { ApiError } from '../services/http';
 import { isBookable } from '../services/launches.service';
@@ -72,6 +73,7 @@ export function BookingForm({ launch, onBooked }: BookingFormProps) {
       </label>
       {error && <p role="alert" className="form-error">{error}</p>}
       <button type="submit" disabled={submitting}>
+        <Icon name="ticket" />
         Reservar
       </button>
     </form>

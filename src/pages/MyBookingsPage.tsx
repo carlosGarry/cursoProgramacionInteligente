@@ -5,6 +5,7 @@ import { AsyncView } from '../components/StatusMessage';
 import { useMyBookings } from '../hooks/useBookings';
 import { paymentStatusLabel } from '../services/bookings.service';
 import { ApiError } from '../services/http';
+import { Icon } from '../components/Icon';
 
 export function MyBookingsPage() {
   const { session, signOut } = useSession();
@@ -20,7 +21,10 @@ export function MyBookingsPage() {
 
   return (
     <section>
-      <h1>Mis reservas</h1>
+      <h1 className="page-title">
+        <Icon name="ticket" />
+        Mis reservas
+      </h1>
       <AsyncView state={state} onRetry={retry}>
         {(bookings) =>
           bookings.length === 0 ? (
@@ -48,6 +52,7 @@ export function MyBookingsPage() {
                       <td data-label="Plazas">{booking.participants}</td>
                       <td data-label="Pago">
                         <span className={`payment-badge payment-${booking.paymentStatus}`}>
+                          <Icon name="card" />
                           {paymentStatusLabel(booking.paymentStatus)}
                         </span>
                       </td>
