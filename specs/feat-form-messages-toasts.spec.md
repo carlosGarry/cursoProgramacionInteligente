@@ -1,7 +1,7 @@
 # Feature: Mensajes de error como notificaciones emergentes
 
 **Reference**: FR8 (PRD.md)
-**Issue**: pendiente (crear en GitHub y poner el número aquí)
+**Issue**: #8
 **Status**: Completed
 
 ---
