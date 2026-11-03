@@ -28,17 +28,34 @@ export function MyBookingsPage() {
               Todavía no tienes reservas. <Link to="/">Ver lanzamientos</Link>
             </p>
           ) : (
-            <ul className="booking-list">
-              {bookings.map((booking) => (
-                <li key={booking.id} className="booking-card" data-testid="booking-card">
-                  <h2>{booking.activity.name}</h2>
-                  <p>{booking.activity.location}</p>
-                  <p>{booking.activity.date}</p>
-                  <p>{booking.participants} {booking.participants === 1 ? 'plaza' : 'plazas'}</p>
-                  <p className="booking-status">Pago: {paymentStatusLabel(booking.paymentStatus)}</p>
-                </li>
-              ))}
-            </ul>
+            <div className="table-wrapper">
+              <table className="bookings-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Lanzamiento</th>
+                    <th scope="col">Lugar</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Plazas</th>
+                    <th scope="col">Pago</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bookings.map((booking) => (
+                    <tr key={booking.id} data-testid="booking-row">
+                      <td data-label="Lanzamiento" className="booking-name">{booking.activity.name}</td>
+                      <td data-label="Lugar">{booking.activity.location}</td>
+                      <td data-label="Fecha">{booking.activity.date}</td>
+                      <td data-label="Plazas">{booking.participants}</td>
+                      <td data-label="Pago">
+                        <span className={`payment-badge payment-${booking.paymentStatus}`}>
+                          {paymentStatusLabel(booking.paymentStatus)}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )
         }
       </AsyncView>

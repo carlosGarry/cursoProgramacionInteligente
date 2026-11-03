@@ -55,6 +55,11 @@ A React web client that consumes the AstroBookings REST API so customers can bro
 - **Priority**: Medium
 - **Status**: Completed
 
+### FR6: Bookings Table and Toast Notifications
+- **Description**: "Mis reservas" shows bookings in a structured table (stacked rows on phones) with colored payment status, and actions such as booking, login, registration and logout confirm with toast notifications.
+- **Priority**: Medium
+- **Status**: Completed
+
 ## Technical Requirements
 
 ### TR1: Typed API Client

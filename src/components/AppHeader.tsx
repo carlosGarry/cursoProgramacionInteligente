@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useSession } from '../app/session-context';
+import { useToast } from '../app/toast-context';
 
 export function AppHeader() {
   const { session, signOut } = useSession();
+  const { notify } = useToast();
+
+  function handleSignOut() {
+    signOut();
+    notify('Has cerrado sesión.');
+  }
 
   return (
     <header className="app-header">
@@ -12,7 +19,7 @@ export function AppHeader() {
           <>
             <span>Hola, {session.user.username}</span>
             <Link to="/bookings">Mis reservas</Link>
-            <button type="button" onClick={signOut}>Salir</button>
+            <button type="button" onClick={handleSignOut}>Salir</button>
           </>
         ) : (
           <>

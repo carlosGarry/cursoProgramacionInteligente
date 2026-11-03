@@ -7,30 +7,32 @@ import { MyBookingsPage } from '../pages/MyBookingsPage';
 import { AppHeader } from '../components/AppHeader';
 import { RequireAuth } from '../components/RequireAuth';
 import { SessionProvider } from './session-context';
+import { ToastProvider } from './toast-context';
 
 export function App() {
   return (
     <SessionProvider>
-      <BrowserRouter>
-        <AppHeader />
-        <main>
-          <Routes>
-            <Route path="/" element={<LaunchListPage />} />
-            <Route path="/launches/:id" element={<LaunchDetailPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route
-              path="/bookings"
-              element={
-                <RequireAuth>
-                  <MyBookingsPage />
-                </RequireAuth>
-              }
-            />
-          </Routes>
-
-        </main>
-      </BrowserRouter>
+      <ToastProvider>
+        <BrowserRouter>
+          <AppHeader />
+          <main>
+            <Routes>
+              <Route path="/" element={<LaunchListPage />} />
+              <Route path="/launches/:id" element={<LaunchDetailPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route
+                path="/bookings"
+                element={
+                  <RequireAuth>
+                    <MyBookingsPage />
+                  </RequireAuth>
+                }
+              />
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </ToastProvider>
     </SessionProvider>
   );
 }

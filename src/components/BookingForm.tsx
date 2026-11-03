@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useSession } from '../app/session-context';
+import { useToast } from '../app/toast-context';
 import { createBooking } from '../services/bookings.service';
 import { ApiError } from '../services/http';
 import { isBookable } from '../services/launches.service';
@@ -13,10 +14,10 @@ interface BookingFormProps {
 
 export function BookingForm({ launch, onBooked }: BookingFormProps) {
   const { session, signOut } = useSession();
+  const { notify } = useToast();
   const maxSeats = launch.availableSeats ?? 0;
   const [participants, setParticipants] = useState(1);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   if (!isBookable(launch)) {
@@ -44,13 +45,12 @@ export function BookingForm({ launch, onBooked }: BookingFormProps) {
 
     setSubmitting(true);
     setError(null);
-    setSuccess(null);
     try {
       await createBooking({ activityId: launch.id, participants }, session.token);
-      setSuccess(`Reserva confirmada: ${participants} ${participants === 1 ? 'plaza' : 'plazas'}.`);
+      notify(`Reserva confirmada: ${participants} ${participants === 1 ? 'plaza' : 'plazas'}.`);
       onBooked();
     } catch (err) {
-      setError(bookingErrorText(err, () => signOut()));
+      notify(bookingErrorText(err, () => signOut()), 'error');
     } finally {
       setSubmitting(false);
     }
@@ -71,7 +71,6 @@ export function BookingForm({ launch, onBooked }: BookingFormProps) {
         />
       </label>
       {error && <p role="alert" className="form-error">{error}</p>}
-      {success && <p role="status" className="form-success">{success}</p>}
       <button type="submit" disabled={submitting}>
         Reservar
       </button>

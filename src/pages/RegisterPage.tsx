@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ApiError, type FieldError } from '../services/http';
 import { register } from '../services/auth.service';
 import { useSession } from '../app/session-context';
+import { useToast } from '../app/toast-context';
 
 export function RegisterPage() {
   const navigate = useNavigate();
   const { signIn } = useSession();
+  const { notify } = useToast();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +23,9 @@ export function RegisterPage() {
     setError(null);
     setFieldErrors([]);
     try {
-      signIn(await register({ username, email, password, terms }));
+      const response = await register({ username, email, password, terms });
+      signIn(response);
+      notify(`Cuenta creada. Bienvenido, ${response.user.username}.`);
       navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error inesperado');

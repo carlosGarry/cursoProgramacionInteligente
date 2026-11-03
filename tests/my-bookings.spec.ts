@@ -78,14 +78,29 @@ test.describe('Mis reservas', () => {
     await page.goto('/bookings');
 
     await expect(page.getByRole('heading', { name: 'Mis reservas' })).toBeVisible();
-    const cards = page.getByTestId('booking-card');
-    await expect(cards).toHaveCount(2);
-    await expect(cards.first().getByRole('heading', { name: 'Luna Express' })).toBeVisible();
-    await expect(cards.first().getByText('Base Lunar')).toBeVisible();
-    await expect(cards.first().getByText('2 plazas')).toBeVisible();
-    await expect(cards.first().getByText('Pago: Pagada')).toBeVisible();
-    await expect(cards.last().getByText('Pago: Pendiente')).toBeVisible();
+    const headers = page.getByRole('columnheader');
+    await expect(headers).toHaveText(['Lanzamiento', 'Lugar', 'Fecha', 'Plazas', 'Pago']);
+    const rows = page.getByTestId('booking-row');
+    await expect(rows).toHaveCount(2);
+    await expect(rows.first().getByRole('cell', { name: 'Luna Express' })).toBeVisible();
+    await expect(rows.first().getByRole('cell', { name: 'Base Lunar' })).toBeVisible();
+    await expect(rows.first().getByRole('cell', { name: '2', exact: true })).toBeVisible();
+    await expect(rows.first().getByText('Pagada')).toHaveClass(/payment-paid/);
+    await expect(rows.last().getByText('Pendiente')).toHaveClass(/payment-pending/);
     expect(sentAuth).toBe('Bearer token-ana');
+  });
+
+  test('en móvil cada celda muestra su nombre de columna y no hay desbordamiento', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await signIn(page);
+    await page.route(`${API}/bookings`, (route) => json(route, bookings));
+
+    await page.goto('/bookings');
+
+    await expect(page.getByTestId('booking-row')).toHaveCount(2);
+    await expect(page.getByTestId('booking-row').first().getByRole('cell', { name: 'Base Lunar' })).toHaveAttribute('data-label', 'Lugar');
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
   });
 
   test('muestra el mensaje de lista vacía con enlace al catálogo', async ({ page }) => {
@@ -129,7 +144,7 @@ test.describe('Mis reservas', () => {
     await expect(page.getByRole('alert')).toContainText('Ha ocurrido un error al cargar los datos.');
     failing = false;
     await page.getByRole('button', { name: 'Reintentar' }).click();
-    await expect(page.getByTestId('booking-card')).toHaveCount(2);
+    await expect(page.getByTestId('booking-row')).toHaveCount(2);
   });
 
   test('el header enlaza a Mis reservas solo con sesión', async ({ page }) => {

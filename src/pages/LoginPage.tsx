@@ -2,10 +2,12 @@ import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../services/auth.service';
 import { useSession } from '../app/session-context';
+import { useToast } from '../app/toast-context';
 
 export function LoginPage() {
   const navigate = useNavigate();
   const { signIn } = useSession();
+  const { notify } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +18,9 @@ export function LoginPage() {
     setSubmitting(true);
     setError(null);
     try {
-      signIn(await login({ email, password }));
+      const response = await login({ email, password });
+      signIn(response);
+      notify(`Sesión iniciada como ${response.user.username}.`);
       navigate('/');
     } catch (err) {
       setError(errorText(err));
