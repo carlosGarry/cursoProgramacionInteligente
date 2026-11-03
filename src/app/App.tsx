@@ -3,7 +3,9 @@ import { LaunchListPage } from '../pages/LaunchListPage';
 import { LaunchDetailPage } from '../pages/LaunchDetailPage';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
+import { MyBookingsPage } from '../pages/MyBookingsPage';
 import { AppHeader } from '../components/AppHeader';
+import { RequireAuth } from '../components/RequireAuth';
 import { SessionProvider } from './session-context';
 
 export function App() {
@@ -17,7 +19,16 @@ export function App() {
             <Route path="/launches/:id" element={<LaunchDetailPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route
+              path="/bookings"
+              element={
+                <RequireAuth>
+                  <MyBookingsPage />
+                </RequireAuth>
+              }
+            />
           </Routes>
+
         </main>
       </BrowserRouter>
     </SessionProvider>

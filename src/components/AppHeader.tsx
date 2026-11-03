@@ -11,6 +11,7 @@ export function AppHeader() {
         {session ? (
           <>
             <span>Hola, {session.user.username}</span>
+            <Link to="/bookings">Mis reservas</Link>
             <button type="button" onClick={signOut}>Salir</button>
           </>
         ) : (

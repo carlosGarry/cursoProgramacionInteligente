@@ -43,7 +43,7 @@ A React web client that consumes the AstroBookings REST API so customers can bro
 ### FR3: Booking Status and My Bookings
 - **Description**: Customers see the status of each booking and a list of their own bookings with the launch they belong to.
 - **Priority**: High
-- **Status**: NotStarted
+- **Status**: Completed
 
 ### FR4: Authentication
 - **Description**: Customers register and log in with email and password. The client keeps the JWT and uses it for booking endpoints.
