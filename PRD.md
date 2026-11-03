@@ -35,9 +35,10 @@ A React web client that consumes the AstroBookings REST API so customers can bro
 - **Description**: Customers see the list of available launches with rocket name, price, and remaining seats. They can open a launch to see its details.
 - **Priority**: High
 - **Status**: Completed
+### FR2: Seat Booking
 - **Description**: Customers book a number of seats on a launch. The client blocks requests above the remaining seats and shows the API error when the booking fails.
 - **Priority**: High
-- **Status**: NotStarted
+- **Status**: Completed
 
 ### FR3: Booking Status and My Bookings
 - **Description**: Customers see the status of each booking and a list of their own bookings with the launch they belong to.

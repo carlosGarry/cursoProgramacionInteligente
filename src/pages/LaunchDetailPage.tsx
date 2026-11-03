@@ -1,13 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
 import { useLaunch } from '../hooks/useLaunches';
 import { AsyncView, StatusMessage } from '../components/StatusMessage';
+import { BookingForm } from '../components/BookingForm';
 import { seatsLabel } from '../components/LaunchCard';
-import { isBookable } from '../services/launches.service';
 import { ApiError } from '../services/http';
 
 export function LaunchDetailPage() {
   const { id = '' } = useParams();
-  const state = useLaunch(id);
+  const { state, reload } = useLaunch(id);
 
   return (
     <section>
@@ -23,9 +23,7 @@ export function LaunchDetailPage() {
               <p>{launch.date}</p>
               <p className="price">{launch.price} €</p>
               <p className="seats">{seatsLabel(launch)}</p>
-              <button type="button" disabled={!isBookable(launch)}>
-                Reservar
-              </button>
+              <BookingForm launch={launch} onBooked={reload} />
             </article>
           )}
         </AsyncView>

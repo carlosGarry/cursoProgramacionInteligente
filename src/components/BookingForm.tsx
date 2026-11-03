@@ -1,0 +1,91 @@
+import { useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
+import { useSession } from '../app/session-context';
+import { createBooking } from '../services/bookings.service';
+import { ApiError } from '../services/http';
+import { isBookable } from '../services/launches.service';
+import type { Launch } from '../types/activity';
+
+interface BookingFormProps {
+  launch: Launch;
+  onBooked: () => void;
+}
+
+export function BookingForm({ launch, onBooked }: BookingFormProps) {
+  const { session, signOut } = useSession();
+  const maxSeats = launch.availableSeats ?? 0;
+  const [participants, setParticipants] = useState(1);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  if (!isBookable(launch)) {
+    return <p className="status-message">Este lanzamiento no admite reservas.</p>;
+  }
+
+  if (!session) {
+    return (
+      <>
+        <p className="status-message">
+          Inicia sesión para reservar. <Link to="/login">Entrar</Link>
+        </p>
+        {error && <p role="alert" className="form-error">{error}</p>}
+      </>
+    );
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!session) return;
+    if (!Number.isInteger(participants) || participants < 1 || participants > maxSeats) {
+      setError(`Elige entre 1 y ${maxSeats} plazas.`);
+      return;
+    }
+
+    setSubmitting(true);
+    setError(null);
+    setSuccess(null);
+    try {
+      await createBooking({ activityId: launch.id, participants }, session.token);
+      setSuccess(`Reserva confirmada: ${participants} ${participants === 1 ? 'plaza' : 'plazas'}.`);
+      onBooked();
+    } catch (err) {
+      setError(bookingErrorText(err, () => signOut()));
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="booking-form" noValidate>
+      <label>
+        Número de plazas
+        <input
+          type="number"
+          name="participants"
+          min={1}
+          max={maxSeats}
+          value={participants}
+          onChange={(e) => setParticipants(Number(e.target.value))}
+          required
+        />
+      </label>
+      {error && <p role="alert" className="form-error">{error}</p>}
+      {success && <p role="status" className="form-success">{success}</p>}
+      <button type="submit" disabled={submitting}>
+        Reservar
+      </button>
+    </form>
+  );
+}
+
+function bookingErrorText(err: unknown, onUnauthorized: () => void): string {
+  if (!(err instanceof ApiError)) return 'Error inesperado';
+  if (err.status === 401) {
+    onUnauthorized();
+    return 'Tu sesión ha caducado. Vuelve a iniciar sesión para reservar.';
+  }
+  if (err.status === 402) return 'No se pudo procesar el pago. Inténtalo de nuevo.';
+  const fieldMessages = err.fieldErrors.map((fieldError) => fieldError.message);
+  return fieldMessages.length > 0 ? fieldMessages.join(' ') : err.message;
+}

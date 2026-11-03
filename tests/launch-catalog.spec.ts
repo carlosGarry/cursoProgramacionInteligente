@@ -47,22 +47,25 @@ test.describe('Catálogo de lanzamientos', () => {
     await expect(cards.filter({ hasText: 'Luna' }).getByText('100 €')).toBeVisible();
   });
 
-  test('un lanzamiento agotado se muestra sin plazas y no es reservable', async ({ page }) => {
+  test('un lanzamiento agotado se muestra sin plazas y no admite reservas', async ({ page }) => {
     await mockApi(page);
     await page.goto('/launches/activity-2');
 
     await expect(page.getByRole('heading', { name: 'Marte' })).toBeVisible();
     await expect(page.getByText('Agotado')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Reservar' })).toBeDisabled();
+    await expect(page.getByText('Este lanzamiento no admite reservas.')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Reservar' })).toHaveCount(0);
   });
 
-  test('un lanzamiento publicado con plazas es reservable en el detalle', async ({ page }) => {
+  test('un lanzamiento publicado con plazas pide iniciar sesión para reservar', async ({ page }) => {
     await mockApi(page);
     await page.goto('/launches/activity-1');
 
     await expect(page.getByText('3 plazas libres')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Reservar' })).toBeEnabled();
+    await expect(page.getByText('Inicia sesión para reservar.')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Entrar' }).last()).toBeVisible();
   });
+
 
   test('si falla la disponibilidad de un lanzamiento, los demás siguen visibles', async ({ page }) => {
     await mockApi(page, { failAvailabilityFor: 'activity-1' });
