@@ -125,7 +125,7 @@ The client consumes these AstroBookings API endpoints (base URL from `VITE_API_U
 | Method | Endpoint          | Auth | Purpose                                  |
 |--------|-------------------|------|------------------------------------------|
 | POST   | `/users`          | No   | Register a customer                      |
-| POST   | `/auth`           | No   | Log in and receive a JWT                 |
+| POST   | `/login`          | No   | Log in and receive a JWT                 |
 | GET    | `/activities`     | No   | Launch catalog (launches with seats)     |
 | GET    | `/activities/:id` | No   | Launch details                           |
 | POST   | `/bookings`       | Yes  | Book seats on a launch                   |
