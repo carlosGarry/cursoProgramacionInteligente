@@ -65,6 +65,11 @@ A React web client that consumes the AstroBookings REST API so customers can bro
 - **Priority**: Low
 - **Status**: Completed
 
+### FR8: Form Messages as Toast Notifications
+- **Description**: Validation and API errors from forms (booking seat range, registration, login) show as toast notifications instead of inline text, so forms keep their layout. Multiple field errors are shown in one toast.
+- **Priority**: Medium
+- **Status**: Completed
+
 ## Technical Requirements
 
 ### TR1: Typed API Client

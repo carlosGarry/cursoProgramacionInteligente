@@ -103,6 +103,7 @@ test.describe('Reservar plazas', () => {
     await page.getByRole('button', { name: 'Reservar' }).click();
 
     await expect(page.getByRole('alert')).toHaveText('Elige entre 1 y 3 plazas.');
+    await expect(page.locator('.form-error')).toHaveCount(0);
     expect(bookingCalled).toBe(false);
   });
 

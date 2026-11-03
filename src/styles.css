@@ -221,11 +221,6 @@ main {
   padding: 0.4rem;
 }
 
-.form-error {
-  color: #ff8a8a;
-  margin: 0;
-}
-
 .table-wrapper {
   overflow-x: auto;
 }

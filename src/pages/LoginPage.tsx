@@ -10,20 +10,18 @@ export function LoginPage() {
   const { notify } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitting(true);
-    setError(null);
     try {
       const response = await login({ email, password });
       signIn(response);
       notify(`Sesión iniciada como ${response.user.username}.`);
       navigate('/');
     } catch (err) {
-      setError(errorText(err));
+      notify(errorText(err), 'error');
     } finally {
       setSubmitting(false);
     }
@@ -41,7 +39,6 @@ export function LoginPage() {
           Contraseña
           <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
-        {error && <p role="alert" className="form-error">{error}</p>}
         <button type="submit" disabled={submitting}>Entrar</button>
       </form>
       <p>

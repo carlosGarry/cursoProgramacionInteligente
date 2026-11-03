@@ -18,7 +18,6 @@ export function BookingForm({ launch, onBooked }: BookingFormProps) {
   const { notify } = useToast();
   const maxSeats = launch.availableSeats ?? 0;
   const [participants, setParticipants] = useState(1);
-  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   if (!isBookable(launch)) {
@@ -27,12 +26,9 @@ export function BookingForm({ launch, onBooked }: BookingFormProps) {
 
   if (!session) {
     return (
-      <>
-        <p className="status-message">
-          Inicia sesión para reservar. <Link to="/login">Entrar</Link>
-        </p>
-        {error && <p role="alert" className="form-error">{error}</p>}
-      </>
+      <p className="status-message">
+        Inicia sesión para reservar. <Link to="/login">Entrar</Link>
+      </p>
     );
   }
 
@@ -40,12 +36,11 @@ export function BookingForm({ launch, onBooked }: BookingFormProps) {
     event.preventDefault();
     if (!session) return;
     if (!Number.isInteger(participants) || participants < 1 || participants > maxSeats) {
-      setError(`Elige entre 1 y ${maxSeats} plazas.`);
+      notify(`Elige entre 1 y ${maxSeats} plazas.`, 'error');
       return;
     }
 
     setSubmitting(true);
-    setError(null);
     try {
       await createBooking({ activityId: launch.id, participants }, session.token);
       notify(`Reserva confirmada: ${participants} ${participants === 1 ? 'plaza' : 'plazas'}.`);
@@ -71,7 +66,6 @@ export function BookingForm({ launch, onBooked }: BookingFormProps) {
           required
         />
       </label>
-      {error && <p role="alert" className="form-error">{error}</p>}
       <button type="submit" disabled={submitting}>
         <Icon name="ticket" />
         Reservar
