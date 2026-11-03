@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-03
+
 ### Added
 - Project structure for Spec-Driven Development: agents, prompts, skills, and instructions for GitHub Copilot and Cursor.
 - Product Requirements Document (`PRD.md`) for the AstroBookings client.
