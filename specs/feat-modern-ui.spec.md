@@ -1,7 +1,7 @@
 # Feature: Diseño visual moderno estilo Metro y responsive
 
 **Reference**: FR5 (PRD.md)
-**Issue**: pendiente (crear en GitHub y poner el número aquí)
+**Issue**: #5
 **Status**: Completed
 
 ---
