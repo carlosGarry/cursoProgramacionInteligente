@@ -1,7 +1,7 @@
 # Feature: Mis reservas en tabla y mensajes emergentes
 
 **Reference**: FR6 (PRD.md)
-**Issue**: pendiente (crear en GitHub y poner el número aquí)
+**Issue**: #6
 **Status**: Completed
 
 ---
