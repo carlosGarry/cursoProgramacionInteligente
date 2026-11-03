@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0b1020;
+  color: #e6e9f2;
+}
+
+.app-header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #1f2a44;
+}
+
+main {
+  padding: 2rem;
+}
+
+.launch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.launch-card,
+.launch-detail {
+  border: 1px solid #1f2a44;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #111a33;
+}
+
+.price {
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  background: #3b2a16;
+  color: #ffc766;
+  font-size: 0.85rem;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
