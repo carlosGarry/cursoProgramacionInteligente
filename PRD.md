@@ -50,6 +50,11 @@ A React web client that consumes the AstroBookings REST API so customers can bro
 - **Priority**: High
 - **Status**: Completed
 
+### FR5: Modern Metro Visual Design
+- **Description**: The client uses a modern Metro-style look (flat colored tiles, bold typography) and adapts to mobile screens: one-column catalog on phones, touch-friendly controls, and stacked header.
+- **Priority**: Medium
+- **Status**: Completed
+
 ## Technical Requirements
 
 ### TR1: Typed API Client
