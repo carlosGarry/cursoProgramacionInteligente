@@ -1,7 +1,7 @@
 # Feature: Iconografía
 
 **Reference**: FR7 (PRD.md)
-**Issue**: pendiente (crear en GitHub y poner el número aquí)
+**Issue**: #7
 **Status**: Completed
 
 ---
